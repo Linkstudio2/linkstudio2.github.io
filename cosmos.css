@@ -1,0 +1,19 @@
+/* A moving deep-space environment, kept behind all reading surfaces. */
+.cosmos{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#020409;isolation:isolate}
+.cosmos-layer{position:absolute;inset:-7%;background-repeat:no-repeat;background-size:cover;will-change:transform}
+.cosmos-nebula{background-image:url('nebula.png');background-position:30% 50%;opacity:.22;filter:saturate(.52);animation:nebula-drift 95s ease-in-out infinite alternate}
+.cosmos-mass{background-image:url('blackhole.png');background-position:65% 48%;opacity:.7;filter:saturate(.62) brightness(.8);animation:cosmic-approach 48s ease-in-out infinite alternate;transform-origin:76% 44%;mask-image:linear-gradient(90deg,transparent 5%,#0008 33%,#000 58%)}
+.cosmos-vignette{position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,5,8,.91),rgba(2,5,8,.65) 33%,rgba(2,5,8,.31) 65%,rgba(2,5,8,.23)),linear-gradient(0deg,rgba(2,5,8,.52),transparent 38%,rgba(2,5,8,.2))}
+.cosmos-stars{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+@keyframes nebula-drift{from{transform:scale(1.06) translate3d(-1%,1%,0) rotate(-2deg)}to{transform:scale(1.17) translate3d(2%,-1%,0) rotate(1deg)}}
+@keyframes cosmic-approach{from{transform:scale(1.01) translate3d(1%,0,0) rotate(-.7deg)}to{transform:scale(1.17) translate3d(-1.8%,.6%,0) rotate(.7deg)}}
+.grid-lines{opacity:.065}.nav{background:linear-gradient(90deg,#050a0d91,#050a0d20)}
+.hero-copy{position:relative;z-index:2}.hero-lead{color:#adb7b5;text-shadow:0 2px 12px #000}.hero-kicker{text-shadow:0 2px 10px #000}.hero h1{text-shadow:0 3px 25px #0008}
+.orbit-node{background:rgba(3,8,11,.8)}.orbit-node .node-year{opacity:.9}
+.hero:before{color:#a2ada8}.orbit-hint{color:#aab5a8}
+.section-head,.about,.resume-section,.contact{background:linear-gradient(90deg,#03080bc9,#03080b83)}
+.section-head{padding-top:25px;padding-bottom:25px}.about,.resume-section,.contact{box-shadow:0 0 0 1px #ffffff03}
+.section-note,.about-side,.resume-side{color:#abb6ae}.footer{background:#03080bcc}
+.cosmos.is-paused .cosmos-layer{animation-play-state:paused}
+@media(max-width:880px){.cosmos-mass{background-position:69% 42%;opacity:.58;mask-image:linear-gradient(180deg,#0008,#000 65%)}.cosmos-vignette{background:linear-gradient(90deg,#020508c9,#02050875),linear-gradient(0deg,#020508b0,transparent 60%)}.cosmos-nebula{opacity:.17}}
+@media(prefers-reduced-motion:reduce){.cosmos-layer{animation:none;will-change:auto}.cosmos-stars{opacity:.5}}

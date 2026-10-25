@@ -1,0 +1,31 @@
+/* Project windows and the small planetary cursor. */
+.orbit-core{font-family:var(--mono);cursor:pointer}
+.orbit-node:focus-visible,.orbit-core:focus-visible{outline:2px solid var(--acid);outline-offset:8px}
+body.project-window-open{overflow:hidden}
+.project-dialog{width:min(1240px,94vw);max-width:none;max-height:92dvh;padding:0;border:1px solid #46503e;background:#0a100d;color:var(--ink);overflow:visible;box-shadow:0 28px 140px #000b}
+.project-dialog::backdrop{background:rgba(2,5,3,.85);backdrop-filter:blur(12px)}
+.project-sheet{max-height:90dvh;overflow:auto}
+.project-window-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;border-bottom:1px solid var(--line);font:11px var(--mono);letter-spacing:.1em;color:var(--acid)}
+.project-close{border:1px solid #526044;background:transparent;color:var(--ink);min-width:44px;min-height:44px;padding:8px 15px;font-size:13px;cursor:pointer}
+.project-close:hover{border-color:var(--acid);color:var(--acid)}
+.project-window-grid{display:grid;grid-template-columns:310px minmax(0,1fr)}
+.project-summary{padding:24px;border-right:1px solid var(--line)}
+.project-art{display:block;width:100%;aspect-ratio:1.35;object-fit:cover;border:1px solid var(--line)}
+.project-summary h2{font-size:28px;line-height:1.4;letter-spacing:-.02em;margin:25px 0 14px;font-weight:400}
+.project-summary p{font:12px/1.9 var(--mono);color:#b1bbae;margin:0 0 20px}
+.project-actions{display:flex;flex-direction:column;align-items:flex-start;gap:18px;margin-top:28px}
+.project-actions a{color:var(--acid);font:12px/1.6 var(--mono);border-bottom:1px solid currentColor;padding-bottom:6px}
+.project-reader{background:#111b14;min-width:0;min-height:530px;display:flex;align-items:stretch}
+.project-frame{display:block;border:0;width:100%;height:64dvh;min-height:530px;background:#f5f5f0}
+.project-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(28px,5vw,72px);background:linear-gradient(0deg,#08100be8,#08100b83),url('nebula.png') center/cover;width:100%}
+.project-placeholder strong{font-size:clamp(27px,4vw,48px);font-weight:400;line-height:1.4}
+.project-placeholder p{font:13px/1.9 var(--mono);color:#b1bbae;max-width:460px;margin-top:24px}
+.project-close:focus-visible,.project-actions a:focus-visible{outline:2px solid var(--acid);outline-offset:5px}
+.cursor-orb{position:fixed;top:0;left:0;z-index:1000;pointer-events:none!important;opacity:0;transition:opacity .2s;will-change:transform;user-select:none}
+.cursor-orb-body{display:block;width:19px;height:19px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 31% 26%,#ffffed 0%,#e3efb1 17%,#9eac63 44%,#333e23 76%,#0e190c 100%);border:1px solid #d4ff3f9c;box-shadow:inset -3px -3px 5px #0008,0 0 18px #d4ff3f35;transition:scale .22s,box-shadow .22s}
+.cursor-orb.is-hover .cursor-orb-body{scale:1.65;box-shadow:inset -3px -3px 5px #0008,0 0 25px #d4ff3f60}
+.cursor-orb.is-pressed .cursor-orb-body{scale:.75}
+@media(hover:hover) and (pointer:fine){html.planet-cursor-on,html.planet-cursor-on *{cursor:none!important}html.planet-cursor-on input,html.planet-cursor-on textarea,html.planet-cursor-on [contenteditable=true]{cursor:text!important}}
+@media(hover:none),(pointer:coarse){.cursor-orb{display:none!important}}
+@media(max-width:760px){.project-dialog{width:94vw;max-height:94dvh}.project-sheet{max-height:92dvh}.project-window-head{padding:12px 16px}.project-window-grid{grid-template-columns:1fr}.project-summary{border-right:0;border-bottom:1px solid var(--line);padding:20px}.project-art{width:110px;height:80px;float:right;margin:0 0 15px 18px}.project-summary h2{margin-top:0;font-size:25px}.project-actions{flex-direction:row;flex-wrap:wrap;gap:18px;margin-top:18px}.project-reader{min-height:340px}.project-frame{min-height:370px;height:56dvh}.project-placeholder{min-height:340px}}
+@media(prefers-reduced-motion:reduce){.cursor-orb,.cursor-orb-body{transition:none}.orbit-core:after{animation:none}}
