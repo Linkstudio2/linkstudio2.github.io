@@ -24,11 +24,22 @@
       links: [['新窗口阅读 ↗', 'guishan-game-design.html'], ['下载 Word 作品集 ↓', 'guishan-game-design.docx', '归山录_游戏策划实习作品集.docx']]
     },
     aigc: {
-      title: 'AIGC 真人类视频', category: '03 / 影像创作', image: 'nebula.png',
-      description: '我的 AIGC 真人类视频创作方向。视频样片尚未加入网站，之后会在这里补充播放入口。',
-      placeholder: '从想法，到影像。',
-      note: '视频样片整理中。需要了解作品或交流创作，可以通过邮箱联系我。',
-      links: [['联系袁华龙 ↗', 'mailto:13350898255@163.com']]
+      title: '斩妖除魔从朝廷鹰犬开始', category: '03 / AIGC 动漫', image: 'aigc-poster.jpg',
+      description: '袁华龙的 AIGC 动漫作品，时长约 2 分 9 秒。点击播放器即可观看完整预览。',
+      video: 'aigc-zhan-yao-chu-mo-preview.mp4',
+      links: [['独立页面观看 ↗', 'aigc-film.html'], ['下载预览视频 ↓', 'aigc-zhan-yao-chu-mo-preview.mp4', '斩妖除魔从朝廷鹰犬开始-预览.mp4']]
+    },
+    geo: {
+      title: 'GEO 文章作品集', category: '05 / GEO', image: 'planet.png',
+      description: '三篇内容写作求职样稿，涵盖 GEO 优化、AI 批量写作与社区茶铺经营，包含关键词策略和编辑流程。',
+      frame: 'geo/index.html',
+      links: [['在线阅读三篇文章 ↗', 'geo/index.html'], ['查看 PDF ↗', 'geo-writing-portfolio.pdf'], ['下载 GEO PDF ↓', 'geo-writing-portfolio.pdf', 'GEO文章作品集_求职样稿.pdf']]
+    },
+    dengxia: {
+      title: '灯下小摊', category: '06 / 手机游戏', image: 'dengxia-icon.jpg',
+      description: '一款竖屏模拟经营手机游戏。在温暖的街角经营卷饼小摊，按客人口味制作餐点，升级设备与配方，挑战三星。',
+      preview: 'dengxia-preview.jpg',
+      links: [['前往 TapTap 试玩 ↗', 'https://www.taptap.cn/app/1034734?os=android']]
     },
     resume: {
       title: '袁华龙的简历', category: '04 / 关于创作者', image: 'star-sun.png',
@@ -37,6 +48,15 @@
       links: [['新窗口查看 ↗', 'resume-yuan-hualong.pdf'], ['下载 PDF 简历 ↓', 'resume-yuan-hualong.pdf', '袁华龙_简历.pdf'], ['下载 Word 简历 ↓', 'resume-yuan-hualong.docx', '袁华龙_简历.docx']]
     }
   };
+  function clearReader() {
+    reader.querySelectorAll('video').forEach(video => {
+      video.pause();
+      video.removeAttribute('src');
+      video.querySelectorAll('source').forEach(source => source.removeAttribute('src'));
+      video.load();
+    });
+    reader.replaceChildren();
+  }
   function openProject(trigger) {
     const project = projects[trigger.dataset.projectKey];
     if (!project) return;
@@ -57,8 +77,38 @@
       else if (!href.startsWith('mailto:')) { link.target = '_blank'; link.rel = 'noopener'; }
       actions.append(link);
     });
-    reader.replaceChildren();
-    if (project.frame) {
+    clearReader();
+    if (project.video) {
+      const video = document.createElement('video');
+      video.className = 'project-video';
+      video.controls = true;
+      video.preload = 'metadata';
+      video.playsInline = true;
+      video.poster = project.image;
+      video.setAttribute('aria-label', project.title);
+      const source = document.createElement('source');
+      source.src = project.video;
+      source.type = 'video/mp4';
+      video.append(source);
+      const media = document.createElement('div');
+      media.className = 'project-media';
+      const fallback = document.createElement('p');
+      fallback.className = 'project-media-status';
+      fallback.setAttribute('role', 'status');
+      fallback.textContent = '点击播放按钮观看；也可以使用左侧的独立页面。';
+      video.addEventListener('error', () => { fallback.textContent = '视频暂时无法加载，请尝试独立页面或下载视频。'; });
+      source.addEventListener('error', () => { fallback.textContent = '视频暂时无法加载，请尝试独立页面或下载视频。'; });
+      video.addEventListener('pointerenter', hideCursor);
+      media.append(video, fallback);
+      reader.append(media);
+    } else if (project.preview) {
+      const preview = document.createElement('img');
+      preview.className = 'project-game-preview';
+      preview.src = project.preview;
+      preview.alt = `${project.title}游戏画面`;
+      preview.loading = 'lazy';
+      reader.append(preview);
+    } else if (project.frame) {
       const frame = document.createElement('iframe');
       frame.className = 'project-frame';
       frame.title = `${project.title}阅读预览`;
@@ -87,7 +137,7 @@
   });
   dialog.addEventListener('close', () => {
     document.body.classList.remove('project-window-open');
-    reader.replaceChildren();
+    clearReader();
     if (lastTrigger) { lastTrigger.classList.remove('active'); lastTrigger.focus({preventScroll:true}); }
   });
 
@@ -107,7 +157,7 @@
   document.addEventListener('pointermove', event => {
     if (!fine.matches || event.pointerType === 'touch') { cursorVisible = false; hideCursor(); return; }
     const target = event.target;
-    if (target.closest('input,textarea,[contenteditable="true"],iframe')) { cursorVisible = false; hideCursor(); return; }
+    if (target.closest('input,textarea,[contenteditable="true"],iframe,video')) { cursorVisible = false; hideCursor(); return; }
     const interactive = Boolean(target.closest('a,button,[role="button"]'));
     cursors.forEach((el, index) => {
       if (movers[index] && cursorVisible) { movers[index].x(event.clientX); movers[index].y(event.clientY); }

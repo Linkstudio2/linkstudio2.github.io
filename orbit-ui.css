@@ -17,6 +17,8 @@ body.project-window-open{overflow:hidden}
 .project-actions a{color:var(--acid);font:12px/1.6 var(--mono);border-bottom:1px solid currentColor;padding-bottom:6px}
 .project-reader{background:#111b14;min-width:0;min-height:530px;display:flex;align-items:stretch}
 .project-frame{display:block;border:0;width:100%;height:64dvh;min-height:530px;background:#f5f5f0}
+.project-video{display:block;width:100%;height:auto;max-height:72dvh;min-height:420px;object-fit:contain;background:#050806}
+.field-link-button{font:10px var(--mono);background:transparent;cursor:pointer}
 .project-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(28px,5vw,72px);background:linear-gradient(0deg,#08100be8,#08100b83),url('nebula.png') center/cover;width:100%}
 .project-placeholder strong{font-size:clamp(27px,4vw,48px);font-weight:400;line-height:1.4}
 .project-placeholder p{font:13px/1.9 var(--mono);color:#b1bbae;max-width:460px;margin-top:24px}
@@ -29,3 +31,22 @@ body.project-window-open{overflow:hidden}
 @media(hover:none),(pointer:coarse){.cursor-orb{display:none!important}}
 @media(max-width:760px){.project-dialog{width:94vw;max-height:94dvh}.project-sheet{max-height:92dvh}.project-window-head{padding:12px 16px}.project-window-grid{grid-template-columns:1fr}.project-summary{border-right:0;border-bottom:1px solid var(--line);padding:20px}.project-art{width:110px;height:80px;float:right;margin:0 0 15px 18px}.project-summary h2{margin-top:0;font-size:25px}.project-actions{flex-direction:row;flex-wrap:wrap;gap:18px;margin-top:18px}.project-reader{min-height:340px}.project-frame{min-height:370px;height:56dvh}.project-placeholder{min-height:340px}}
 @media(prefers-reduced-motion:reduce){.cursor-orb,.cursor-orb-body{transition:none}.orbit-core:after{animation:none}}
+@media(max-width:760px){.project-video{min-height:260px;max-height:56dvh}}
+
+/* New work uses the established celestial artwork and typography. */
+.field-card.project-tile{display:flex;flex-direction:column;min-height:390px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.project-tile h3{margin:112px 0 12px;line-height:1.35;letter-spacing:-.025em}
+.project-tile p{margin-bottom:24px;max-width:280px;color:#bec5ba}
+.game-links button{appearance:none;background:none;border:0;border-bottom:1px solid currentColor;padding:0 0 5px;color:var(--acid);font:inherit;text-align:left;cursor:pointer}
+.game-links button:focus-visible{outline:2px solid var(--acid);outline-offset:5px}
+.field-card.geo{background:linear-gradient(180deg,#05080622,#050806ed),url('planet.png') center/cover}
+.field-card.dengxia{background:linear-gradient(180deg,#05080666,#050806ee),url('star-sun.png') center/cover}
+.field-card.three.project-tile{background:linear-gradient(180deg,#05080666,#050806ed),url('aigc-poster.jpg') center/cover}
+.mobile-game-icon{position:absolute;left:24px;top:64px;width:68px;height:68px;object-fit:cover;border-radius:16px;border:1px solid #e3efb14d}
+.dengxia.project-tile h3{margin-top:130px}
+.project-media{display:flex;flex-direction:column;justify-content:center;gap:14px;width:100%;padding:20px;box-sizing:border-box;background:#050806}
+.project-video{width:100%;min-height:0;height:auto;max-height:60dvh;aspect-ratio:16/9;object-fit:contain}
+.project-media-status{color:#b1bbae;font:12px/1.8 var(--mono);margin:0}
+.project-game-preview{display:block;width:100%;max-height:72dvh;object-fit:contain;background:#100e0b}
+@media(hover:hover) and (pointer:fine){html.planet-cursor-on video,html.planet-cursor-on video *{cursor:auto!important}}
+@media(max-width:880px){.field-card.project-tile{min-height:360px}.project-tile .game-links{gap:16px 20px}.project-media{padding:14px}.project-dialog:has(.project-video) .project-reader{min-height:0}.project-video{max-height:48dvh}.project-game-preview{max-height:65dvh}}
